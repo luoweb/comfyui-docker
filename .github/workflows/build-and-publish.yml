@@ -54,7 +54,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
       # Extracts the versions of ComfyUI and the ComfyUI Manager from the Dockerfile using a Python script; the versions are written to the output
       # file, which are available in subsequent steps under steps.versions.outputs.COMFYUI_VERSION and steps.versions.outputs.COMFYUI_MANAGER_VERSION;
