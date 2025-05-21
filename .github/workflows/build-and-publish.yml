@@ -9,7 +9,13 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
-
+  workflow_dispatch:
+      inputs:
+          tag_name:
+              description: 'Tag version of the image to be pushed.'
+              type: string
+              required: true
+              default: '20250521'  
 # Defines two custom environment variables for the host name of the registry (ghcr.io for the GitHub Container Registry) and the name of the image,
 # which is set to the name of the repository
 env:
@@ -109,7 +115,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.docker-image-metadata.outputs.tags }}
+          tags: |
+            ${{ steps.docker-image-metadata.outputs.tags }}
+            ${{ github.event.inputs.tag_name }}
           labels: ${{ steps.docker-image-metadata.outputs.labels }}
 
       # Generates an artifact attestation for the image, which is an unforgeable statement about where and how it was built; it increases supply chain
